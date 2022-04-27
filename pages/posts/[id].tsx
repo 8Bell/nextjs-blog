@@ -1,9 +1,11 @@
 import { GetStaticPaths, GetStaticProps } from 'next';
 import Head from 'next/head';
 import React from 'react';
-import { getAllPostIds, getPostData, getSortedPostsData } from '../../lib/post';
+import { getAllPostIds, getPostData } from '../../lib/post';
+import homeStyle from '../../styles/Home.module.css';
+import postStyle from '../../styles/Post.module.css';
 
-const Post = ({
+export default function Post({
 	postData,
 }: {
 	postData: {
@@ -11,25 +13,24 @@ const Post = ({
 		date: string;
 		contentHtml: string;
 	};
-}) => {
+}) {
 	return (
-		<div>
+		<div className={postStyle.container}>
 			<Head>
 				<title>{postData.title}</title>
 			</Head>
 			<article>
-				{/* <h1 className={homeStyles.headingXl}>{postData.title}</h1> */}
-				<div>{postData.date}</div>
+				<h1 className={homeStyle.headingXl}>{postData.title}</h1>
+				<div className={homeStyle.lightText}>{postData.date}</div>
 				<div dangerouslySetInnerHTML={{ __html: postData.contentHtml }} />
 			</article>
 		</div>
 	);
-};
-
-export default Post;
+}
 
 export const getStaticPaths: GetStaticPaths = async () => {
 	const paths = getAllPostIds();
+
 	return {
 		paths,
 		fallback: false,

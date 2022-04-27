@@ -34,9 +34,11 @@ export function getSortedPostsData() {
 export function getAllPostIds() {
 	const fileNames = fs.readdirSync(postsDirectory);
 	return fileNames.map((fileName) => {
-		params: {
-			id: fileName.replace(/\.md$/, '');
-		}
+		return {
+			params: {
+				id: fileName.replace(/\.md$/, ''),
+			},
+		};
 	});
 }
 export async function getPostData(id: string) {
